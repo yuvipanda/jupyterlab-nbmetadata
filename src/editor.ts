@@ -10,9 +10,7 @@ import {
   JSONObject
 } from '@phosphor/coreutils';
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
 import {
   INotebookTracker

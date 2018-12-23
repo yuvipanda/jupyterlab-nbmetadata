@@ -9,20 +9,15 @@ import { JSONExt } from '@phosphor/coreutils';
 import { Widget } from '@phosphor/widgets';
 
 import MetadataEditorWidget from "./editor";
-import EditMetadataButton from "./toolbar";
 import '../style/index.css';
 
 function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRestorer, notebookTracker: INotebookTracker) {
-    let widget: MetadataEditorWidget;
+    let widget = new MetadataEditorWidget(notebookTracker);
 
     const command = 'nbmetadata:edit';
     app.commands.addCommand(command, {
-      label: "Edit Notebook Metadata",
+      label: "Notebook Metadata",
       execute: () => {
-        if (!widget) {
-          widget = new MetadataEditorWidget(notebookTracker);
-          widget.update();
-        }
         if (!tracker.has(widget)) {
           tracker.add(widget);
         }
@@ -33,11 +28,9 @@ function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRe
         widget.update();
         app.shell.activateById(widget.id);
       },
-
     })
 
     palette.addItem({command, category: 'Notebook'});
-    app.docRegistry.addWidgetExtension('Notebook', new EditMetadataButton());
 
     let tracker = new InstanceTracker<Widget>({ namespace: 'nbmetadata-editor' });
     restorer.restore(tracker, {
