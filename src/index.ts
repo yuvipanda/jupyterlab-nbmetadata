@@ -7,12 +7,13 @@ import { ICommandPalette, InstanceTracker } from '@jupyterlab/apputils';
 import { JSONExt } from '@phosphor/coreutils';
 
 import { Widget } from '@phosphor/widgets';
+import { IEditorServices } from "@jupyterlab/codeeditor";
 
 import MetadataEditorWidget from "./editor";
 import '../style/index.css';
 
-function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRestorer, notebookTracker: INotebookTracker) {
-    let widget = new MetadataEditorWidget(notebookTracker);
+function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRestorer, notebookTracker: INotebookTracker, editorServices: IEditorServices) {
+    let widget = new MetadataEditorWidget(notebookTracker, editorServices.factoryService);
 
     const command = 'nbmetadata:edit';
     app.commands.addCommand(command, {
@@ -44,7 +45,7 @@ function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRe
 const extension: JupyterLabPlugin<void> = {
   id: 'jupyterlab_nbmetadata',
   autoStart: true,
-  requires: [ICommandPalette, ILayoutRestorer, INotebookTracker],
+  requires: [ICommandPalette, ILayoutRestorer, INotebookTracker, IEditorServices],
   activate: activate
 };
 
