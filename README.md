@@ -4,6 +4,15 @@
 
 A JupyterLab plugin to edit Notebook Metadata
 
+![Right pane metadata editor](right-sidebar-screenshot.png)
+
+# Usage
+
+Selecting 'Notebook Metadata Editor' from the Command Palette
+should open up the Notebook Metadata Editor in the right
+pane. This is updated with current notebook's metadata.
+You can edit this as required. Notebooks must be saved
+explicitly after edigint their metadata.
 
 ## Prerequisites
 

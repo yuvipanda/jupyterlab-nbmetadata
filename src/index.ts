@@ -17,7 +17,7 @@ function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRe
 
     const command = 'nbmetadata:edit';
     app.commands.addCommand(command, {
-      label: "Notebook Metadata",
+      label: "Notebook Metadata Editor",
       execute: () => {
         if (!tracker.has(widget)) {
           tracker.add(widget);
