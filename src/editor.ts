@@ -1,20 +1,9 @@
-// Don't try to find typescript definitions for jsoneditor
-// @types/jsoneditor exists but is too old, and won't let us
-// use some properties we *do* want to use. Meh.
-//@ts-ignore
-import JSONEditor from "jsoneditor/dist/jsoneditor.js";
-import 'jsoneditor/dist/jsoneditor.css';
-import 'jsoneditor/dist/img/jsoneditor-icons.svg';
+import { JSONObject } from '@phosphor/coreutils';
+import { PanelLayout, Widget } from '@phosphor/widgets';
+import { INotebookTracker } from '@jupyterlab/notebook';
 
-import {
-  JSONObject
-} from '@phosphor/coreutils';
-
-import { Widget } from '@phosphor/widgets';
-
-import {
-  INotebookTracker
-} from '@jupyterlab/notebook';
+//import { Dialog } from '@jupyterlab/apputils';
+import { JSONEditor, IEditorFactoryService } from "@jupyterlab/codeeditor";
 
 class MetadataEditorWidget extends Widget {
   readonly containerDiv: HTMLDivElement
@@ -22,7 +11,7 @@ class MetadataEditorWidget extends Widget {
   readonly notebookTracker: INotebookTracker;
 
   readonly editor: JSONEditor;
-  constructor(notebookTracker: INotebookTracker) {
+  constructor(notebookTracker: INotebookTracker, editorFactoryService: IEditorFactoryService) {
     super();
 
     this.notebookTracker = notebookTracker;
@@ -38,30 +27,25 @@ class MetadataEditorWidget extends Widget {
     this.editorDiv = document.createElement('div');
     this.containerDiv.appendChild(this.editorDiv);
 
-    this.editor = new JSONEditor(this.editorDiv, {
-      name: 'Notebook Metadata',
-      mainMenuBar: false,
-      navigationBar: false,
-      enableSort: false,
-      enableTransform: false,
-      onChangeJSON: (json: JSONObject) => {
-        this.setCurrentNotebookMetadata(json);
-      }
-    }, {});
+    this.editor = new JSONEditor({
+        editorFactory: editorFactoryService.newDocumentEditor,
+        title: "Notebook Metadata"
+    });
+
+    // FIXME: JSON serialization seems to use 4space indent, so this doesn't actually work
+    this.editor.editor.setOption('tabSize', 2);
+    this.editor.editor.setOption('lineWrap', 'off');
+
+    let layout = new PanelLayout()
+    layout.insertWidget(0, this.editor);
+    this.layout = layout;
 
     this.notebookTracker.currentChanged.connect(() => {
       let curNotebookWidget = this.notebookTracker.currentWidget;
       if (curNotebookWidget.isAttached) {
         let metadata = curNotebookWidget.content.model.metadata;
-        metadata.changed.connect(() => {
-          console.log(metadata.toJSON());
-          if (metadata.toJSON() != this.editor.get()) {
-            this.editor.setText(JSON.stringify(metadata.toJSON()))
-          }
-        })
-
-        // Uh, we can't pass the object
-        this.editor.setText(JSON.stringify(metadata));
+        this.editor.source = metadata;
+        this.editor.editorTitle = 'Notebook Metadata (' + curNotebookWidget.title.label + ')';
       }
       return true;
     });
