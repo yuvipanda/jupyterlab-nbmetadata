@@ -66,6 +66,8 @@ class MetadataEditorWidget extends Widget {
       name: 'Notebook Metadata',
       mainMenuBar: false,
       navigationBar: false,
+      enableSort: false,
+      enableTransform: false,
       onChangeJSON: (json: JSONObject) => {
         this.setCurrentNotebookMetadata(json);
       }
