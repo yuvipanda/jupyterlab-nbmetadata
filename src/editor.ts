@@ -28,7 +28,7 @@ class MetadataEditorWidget extends Widget {
     this.notebookTracker = notebookTracker;
 
     this.id = 'notebook-metadata-editor';
-    this.title.label = 'Notebook Metadata Editor';
+    this.title.label = 'Notebook Metadata';
     this.title.closable = true;
 
     this.addClass('jp-MetadataEditorWidget')

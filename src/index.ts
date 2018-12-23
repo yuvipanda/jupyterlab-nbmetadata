@@ -30,7 +30,7 @@ function activate(app: JupyterLab, palette: ICommandPalette, restorer: ILayoutRe
       },
     })
 
-    palette.addItem({command, category: 'Notebook'});
+    palette.addItem({command, category: 'Notebook Operations'});
 
     let tracker = new InstanceTracker<Widget>({ namespace: 'nbmetadata-editor' });
     restorer.restore(tracker, {
