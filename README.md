@@ -1,6 +1,8 @@
-# jupyterlab_nbmetadata
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/yuvipanda/jupyterlab-nbmetadata/master)
 
-Edit Notebook Metadata in JupyterLab
+# JupyterLab Notebook Metadata Editor Plugin
+
+A JupyterLab plugin to edit Notebook Metadata
 
 
 ## Prerequisites
