@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/yuvipanda/jupyterlab-nbmetadata/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/yuvipanda/jupyterlab-nbmetadata/master?urlpath=/lab)
 
 # JupyterLab Notebook Metadata Editor Plugin
 
