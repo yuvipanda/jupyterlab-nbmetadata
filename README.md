@@ -1,3 +1,5 @@
+**Archived**: JupyterLab supports this out of the box https://discourse.jupyter.org/t/how-to-edit-cell-tags-in-jupyter-lab/4419/2?u=yuvipanda
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/yuvipanda/jupyterlab-nbmetadata/master?urlpath=/lab)
 
 # JupyterLab Notebook Metadata Editor Plugin
